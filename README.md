@@ -1,3 +1,3 @@
 # Blom
 
-Blom Is A Blog Engine(WIP).
+Blom Is A Static Website Generator Wirte By Go.
