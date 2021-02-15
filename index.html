@@ -1,0 +1,13 @@
+<html>
+
+<body>
+  <h1>ABCDLSJ's Blog!</h1>
+  {{range .}}
+  <a href="/{{.File}}">
+    <h2>{{.Title}} ({{.Date}})</h2>
+  </a>
+  <p>{{.Description}}</p>
+  {{end}}
+</body>
+
+</html>
