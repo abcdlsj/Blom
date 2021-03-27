@@ -15,6 +15,7 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 )
 
+// no comment
 const (
 	PostsPathMatch    string = "posts/*"
 	outputDir         string = "public"
@@ -22,6 +23,7 @@ const (
 	IndexTemplateFile string = "index.html"
 )
 
+// Post Markown File
 type Post struct {
 	Title   string
 	Date    string
@@ -30,7 +32,7 @@ type Post struct {
 	File    string
 }
 
-func handlerequest(w http.ResponseWriter, r *http.Request) {
+func handleRequest(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path[1:] == "" {
 		posts := getPosts()
 		t := template.New(IndexTemplateFile)
@@ -54,6 +56,7 @@ func handlerequest(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, post)
 	}
 }
+
 func markdown2HTML(src []byte) ([]byte, error) {
 	markdown := goldmark.New(
 		goldmark.WithRendererOptions(
@@ -73,13 +76,13 @@ func markdown2HTML(src []byte) ([]byte, error) {
 }
 
 func getPosts() []Post {
-	a := []Post{}
+	var a []Post
 	files, _ := filepath.Glob("posts/*")
 	for _, f := range files {
 		file := strings.Replace(f, "posts/", "", -1)
 		file = strings.Replace(file, ".md", "", -1)
-		fileread, _ := ioutil.ReadFile(f)
-		lines := strings.Split(string(fileread), "\n")
+		filereads, _ := ioutil.ReadFile(f)
+		lines := strings.Split(string(filereads), "\n")
 		title := string(lines[1])
 		date := string(lines[2])
 		summary := string(lines[3])
@@ -94,6 +97,7 @@ func getPosts() []Post {
 }
 
 func main() {
-	http.HandleFunc("/", handlerequest)
+	println("Now Listened in localhost:8100\n")
+	http.HandleFunc("/", handleRequest)
 	http.ListenAndServe(":8100", nil)
 }
