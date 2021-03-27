@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -13,6 +14,7 @@ import (
 	highlighting "github.com/yuin/goldmark-highlighting"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/renderer/html"
+	"gopkg.in/yaml.v3"
 )
 
 const (
@@ -21,6 +23,14 @@ const (
 	PostTemplateFile  string = "post.html"
 	IndexTemplateFile string = "index.html"
 )
+
+type Config struct {
+	Author      string `yaml:"author"`
+	Title       string `yaml:"title"`
+	Description string `yaml:"description"`
+	Mail        string `yaml:"mail"`
+	Github      string `yaml:"github"`
+}
 
 type Post struct {
 	Title   string
@@ -93,7 +103,16 @@ func getPosts() []Post {
 	return a
 }
 
+func parseConfigYaml() {
+	var setting Config
+	config, err := ioutil.ReadFile("config.yaml")
+	if err != nil {
+		fmt.Printf("Error in read config.yaml, %s", err)
+	}
+	yaml.Unmarshal(config, &setting)
+}
+
 func main() {
 	http.HandleFunc("/", handlerequest)
-	http.ListenAndServe(":8100", nil)
+	http.ListenAndServe(":8200", nil)
 }
