@@ -18,13 +18,11 @@
 
 <body>
   <blog>ABCDLSJ's Blog!<br></blog>
-  <p>
   <a href="/{{.File}}">
     <bititle>{{.MetaData.Title}}</bititle>
   </a>
   <summary>{{.MetaData.Summary}}</summary>
   <tag>{{index .MetaData.Tag 0}} {{index .MetaData.Tag 1}}</tag>
-  </p>
   <p>{{.Body}}</p>
 </body>
 
