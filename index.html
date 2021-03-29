@@ -1,12 +1,25 @@
 <html>
 
+<head>
+  <style type="text/css">
+    body {
+      margin: 20px 300px 20px;
+    }
+
+    blog {
+      font-size: 32px;
+      text-align: center;
+    }
+  </style>
+</head>
+
 <body>
-  <h1>ABCDLSJ's Blog!</h1>
+  <blog>ABCDLSJ's Blog!<br></blog>
   {{range .}}
   <a href="/{{.File}}">
-    <h2>{{.Title}} ({{.Date}})</h2>
+    <post>{{.MetaData.Title}} ({{.MetaData.Date}})</post>
   </a>
-  <p>{{.Description}}</p>
+  <p>{{.MetaData.Summary}}</p>
   {{end}}
 </body>
 
